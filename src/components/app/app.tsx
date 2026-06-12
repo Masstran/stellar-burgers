@@ -16,12 +16,31 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Preloader } from '@ui';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route';
+import { useDispatch, useSelector } from '../../services/store';
+import {
+  getIngredientsError,
+  getIngredients,
+  getIngredientsThunk,
+  getIngredientsIsLoading
+} from '../../slicers/ingredientsSlice';
+import { useEffect } from 'react';
+import {
+  ACCESS_TOKEN,
+  authChecked,
+  checkUserAuthThunk
+} from '../../slicers/userSlice';
+import { getCookie } from '../../utils/cookie';
 
 const App = () => {
-  /** TODO: взять переменные из стора */
-  const isIngredientsLoading = false;
-  const ingredients = [];
-  const error = null;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getIngredientsThunk());
+    if (getCookie(ACCESS_TOKEN)) {
+      dispatch(checkUserAuthThunk());
+    } else {
+      dispatch(authChecked());
+    }
+  }, []);
 
   const navigate = useNavigate();
   const onModalClose = () => {
@@ -39,7 +58,7 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Login />
             </ProtectedRoute>
           }
@@ -47,7 +66,7 @@ const App = () => {
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Register />
             </ProtectedRoute>
           }
@@ -55,7 +74,7 @@ const App = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -63,7 +82,7 @@ const App = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ResetPassword />
             </ProtectedRoute>
           }
