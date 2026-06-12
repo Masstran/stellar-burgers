@@ -13,22 +13,16 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Preloader } from '@ui';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route';
-import { useDispatch, useSelector } from '../../services/store';
-import {
-  getIngredientsError,
-  getIngredients,
-  getIngredientsThunk,
-  getIngredientsIsLoading
-} from '../../slicers/ingredientsSlice';
+import { useDispatch } from '../../services/store';
+import { getIngredientsThunk } from '../../services/ingredientsSlice';
 import { useEffect } from 'react';
 import {
   ACCESS_TOKEN,
   authChecked,
   checkUserAuthThunk
-} from '../../slicers/userSlice';
+} from '../../services/userSlice';
 import { getCookie } from '../../utils/cookie';
 
 const App = () => {
@@ -128,7 +122,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal title='' onClose={onModalClose}>
+              <Modal title='Детали ингредиента' onClose={onModalClose}>
                 <IngredientDetails />
               </Modal>
             }
