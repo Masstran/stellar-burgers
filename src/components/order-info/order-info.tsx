@@ -16,7 +16,7 @@ export const OrderInfo: FC = () => {
   useEffect(() => {
     const number = Number(numberStr);
     dispatch(getOrderByNumberThunk(number));
-  }, []);
+  }, [numberStr]);
   const orderData = useSelector(getViewOrderModalData);
 
   const ingredients: TIngredient[] = useSelector(getIngredients);
