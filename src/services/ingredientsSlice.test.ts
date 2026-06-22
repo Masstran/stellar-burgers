@@ -17,7 +17,7 @@ const loadingState: TIngredientsState = {
   isLoading: true
 };
 
-describe('ingredients reducers test', () => {
+describe('Tests for ingredients reducers', () => {
   test('When pending should set isLoading and reset error', () => {
     const action = { type: getIngredientsThunk.pending.type };
     const newState: TIngredientsState = ingredientsSliceReducer(

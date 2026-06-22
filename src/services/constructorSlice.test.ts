@@ -90,7 +90,7 @@ const sortedState: TConstructorState = {
   ingredients: [sauceWithId, mainWithId]
 };
 
-describe('constructor reducers test', () => {
+describe('Tests for constructor reducers', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });

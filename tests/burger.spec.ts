@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test.describe('Constructor page', () => {
+test.describe('Constructor page tests', () => {
   test('Page opens, list loads', async ({ page }) => {
     await page.goto('/');
 
@@ -66,7 +66,9 @@ test.describe('Constructor page', () => {
 
     const ingredient = page.getByTestId('main-643d69a5c3f7b9001cfa0941');
     await ingredient.click();
-    await expect(page.getByTestId('modal')).toBeVisible();
+    const modal = page.getByTestId('modal');
+    await expect(modal).toBeVisible();
+    await expect(modal).toContainText('Биокотлета из марсианской Магнолии');
   });
 
   test('Should close modal on x click', async ({ page }) => {
@@ -138,5 +140,7 @@ test.describe('Constructor page', () => {
 
     await page.getByTestId('modal-close').click();
     await expect(modal).not.toBeVisible();
+
+    await context.clearCookies();
   });
 });
