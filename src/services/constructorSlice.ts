@@ -1,12 +1,12 @@
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 
-type TConstructorState = {
+export type TConstructorState = {
   bun: TConstructorIngredient | null;
   ingredients: TConstructorIngredient[];
 };
 
-const initialState: TConstructorState = {
+export const initialState: TConstructorState = {
   bun: null,
   ingredients: []
 };
@@ -70,6 +70,8 @@ export const {
   clearConstructor,
   moveConstructorIngredient
 } = constructorSlice.actions;
+
+export const constructorSliceReducer = constructorSlice.reducer;
 
 export const {
   getConstructorIngredients,

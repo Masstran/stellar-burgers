@@ -41,6 +41,19 @@ describe('ingredients reducers test', () => {
     expect(newState.error).toBe('Some error');
   });
 
+  test('When rejected with no error message should reset isLoading and set error to null', () => {
+    const action = {
+      type: getIngredientsThunk.rejected.type,
+      error: {}
+    };
+    const newState: TIngredientsState = ingredientsSliceReducer(
+      loadingState,
+      action
+    );
+    expect(newState.isLoading).toBe(false);
+    expect(newState.error).toBe(null);
+  });
+
   test('When fulfilled should reset isLoading and set ingredients', () => {
     const ingredients: TIngredient[] = [
       {
